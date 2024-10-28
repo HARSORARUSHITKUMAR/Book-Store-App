@@ -2,9 +2,25 @@ import { Link } from "react-router-dom";
 import { HiMiniBars3CenterLeft } from "react-icons/hi2";
 import { IoSearchOutline } from "react-icons/io5";
 import { HiOutlineUser, HiOutlineHeart, HiOutlineShoppingCart } from "react-icons/hi";
+import avatarImg from "../assets/avatar.png";
+import { useState } from "react";
+
+
+const navigation = [
+    { name: "Dashboard", href: "/dashboard" },
+    { name: "Orders", href: "/orders" },
+    { name: "Cart Page", href: "/cart" },
+    { name: "Check Out", href: "/checkout" },
+]
 
 
 const Navbar = () => {
+
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    // console.log(isDropdownOpen);
+
+    const currentUser = true;
+
     return (
         <header className="max-w-screen-2xl mx-auto px-24 py-6">
             <nav className="flex justify-between items-center">
@@ -25,7 +41,34 @@ const Navbar = () => {
 
                 {/* right side */}
                 <div className="relative flex items-center md:space-x-3 space-x-2">
-                    <HiOutlineUser className="size-6" />
+                    <div>
+                        {
+                            currentUser ? <>
+                                <button onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                                    <img src={avatarImg} alt="" className={`size-7 rounded-full ${currentUser ? 'ring-2 ring-blue-500' : ''}`} />
+                                </button>
+                                {/* Show DropDown */}
+                                {
+                                    isDropdownOpen && (
+                                        <div>
+                                            <ul>
+                                                {
+                                                    navigation.map((item) => (
+                                                        <li>
+                                                            <Link to={item.href}>
+                                                                {item.name}
+                                                            </Link>
+                                                        </li>
+                                                    ))
+                                                }
+                                            </ul>
+                                        </div>
+                                    )
+                                }
+                            </> : <Link to="./login"> <HiOutlineUser className="size-6" /></Link>
+                        }
+                    </div>
+
                     <button className="hidden sm:block">
                         <HiOutlineHeart className="size-6" />
                     </button>
