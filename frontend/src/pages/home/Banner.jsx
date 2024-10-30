@@ -13,7 +13,7 @@ const Banner = () => {
                     It's time to update your reading list with some of the latest and greatest releases in the literary world.
                     From heart-pumping thrillers to captivating memoirs, this week's new releases offer something for everyone
                 </p>
-                <button className='btn-primary'>Subscribe</button>
+                <button className='btn-primary px-12 py-2'>Subscribe</button>
             </div>
         </div>
     );
