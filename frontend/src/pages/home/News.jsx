@@ -61,7 +61,7 @@ const News = () => {
                     640: { slidesPerView: 1, spaceBetween: 20 },
                     768: { slidesPerView: 2, spaceBetween: 40 },
                     1024: { slidesPerView: 2, spaceBetween: 50 },
-                    1180: { slidesPerView: 3, spaceBetween: 50 },
+                    // 1180: { slidesPerView: 3, spaceBetween: 50 },
                 }}
                 modules={[Pagination, Navigation]}
                 className="mySwiper"
@@ -71,7 +71,7 @@ const News = () => {
                         <SwiperSlide key={index}>
                             <div className='flex flex-col sm:flex-row sm:justify-between items-center gap-12'>
                                 {/* content */}
-                                <div className='py-4'>
+                                <div className='py-2'>
                                     <Link to="/">
                                         <h3 className='text-lg font-medium hover:text-blue-500 mb-4'>{item.title}</h3>
                                     </Link>
