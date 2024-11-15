@@ -1,11 +1,21 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { getImgUrl } from '../../utils/getImgUrl';
+import { clearCart, removeFromCart } from '../../redux/features/cart/cartSlice';
 
 const CartPage = () => {
 
+    const dispatch = useDispatch();
+
     const cartItems = useSelector(state => state.cart.cartItems);
+    const totalPrice = cartItems.reduce((acc, item) => acc + item.newPrice, 0).toFixed(2);
+    const handleRemoveFromCart = (product) => {
+        dispatch(removeFromCart(product));
+    };
+    const handleClearCart = () => {
+        dispatch(clearCart())
+    }
 
 
     return (
@@ -17,7 +27,7 @@ const CartPage = () => {
                         <div className="ml-3 flex h-7 items-center ">
                             <button
                                 type="button"
-                                // onClick={handleClearCart}
+                                onClick={handleClearCart}
                                 className="relative -m-2 py-1 px-2 bg-red-500 text-white rounded-md hover:bg-secondary transition-all duration-200  "
                             >
                                 <span className="">Clear Cart</span>
@@ -53,11 +63,16 @@ const CartPage = () => {
                                                                 </div>
                                                                 <p className="mt-1 text-sm text-gray-500 capitalize"><strong>Category: </strong>{product?.category}</p>
                                                             </div>
-                                                            <div className="flex flex-1 flex-wrap items-end justify-between space-y-2 text-sm">
+                                                            <div
+                                                                className="flex flex-1 flex-wrap items-end justify-between space-y-2 text-sm">
                                                                 <p className="text-gray-500"><strong>Qty:</strong> 1</p>
 
                                                                 <div className="flex">
-                                                                    <button type="button" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                                                    {/* Remove From The Cart */}
+                                                                    <button
+                                                                        onClick={() => handleRemoveFromCart(product)}
+                                                                        type="button"
+                                                                        className="font-medium text-indigo-600 hover:text-indigo-500">
                                                                         Remove
                                                                     </button>
                                                                 </div>
@@ -86,7 +101,7 @@ const CartPage = () => {
                 <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                     <div className="flex justify-between text-base font-medium text-gray-900">
                         <p>Subtotal</p>
-                        <p>$0</p>
+                        <p>${totalPrice ? totalPrice : 0}</p>
                     </div>
                     <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                     <div className="mt-6">
