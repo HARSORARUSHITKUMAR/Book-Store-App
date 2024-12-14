@@ -3,31 +3,31 @@ const mongoose = require('mongoose');
 const bookSchema = new mongoose.Schema({
     title: {
         type: String,
-        require: true,
+        required: true,
     },
     description: {
         type: String,
-        require: true,
+        required: true,
     },
     category: {
         type: String,
-        require: true,
+        required: true,
     },
     trending: {
         type: Boolean,
-        require: true,
+        required: true,
     },
     coverImage: {
         type: String,
-        require: true,
+        required: true,
     },
     oldPrice: {
         type: Number,
-        require: true,
+        required: true,
     },
     newPrice: {
         type: Number,
-        require: true,
+        required: true,
     },
     createdAt: {
         type: Date,
