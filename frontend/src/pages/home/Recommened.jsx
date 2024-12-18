@@ -8,17 +8,21 @@ import 'swiper/css/navigation';
 
 import { Pagination, Navigation } from 'swiper/modules';
 import BookCard from '../books/BookCard';
+import { useFetchAllBookQuery } from '../../redux/features/cart/book.Api';
 
 const Recommened = () => {
 
-    const [books, setBooks] = useState([]);
+    // const [books, setBooks] = useState([]);
 
 
-    useEffect(() => {
-        fetch("books.json")
-            .then(res => res.json())
-            .then((data) => setBooks(data));
-    }, []);
+    // useEffect(() => {
+    //     fetch("books.json")
+    //         .then(res => res.json())
+    //         .then((data) => setBooks(data));
+    // }, []);
+
+    const { data: books = [] } = useFetchAllBookQuery();
+
 
 
     return (
