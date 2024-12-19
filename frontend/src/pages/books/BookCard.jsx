@@ -8,7 +8,7 @@ import { addToCart } from '../../redux/features/cart/cartSlice';
 
 
 const BookCard = ({ book }) => {
-
+    // add to cart 
     const dispatch = useDispatch();
     const handleAddToCart = (product) => {
         dispatch(addToCart(product))
