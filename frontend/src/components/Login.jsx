@@ -1,17 +1,42 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
+import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
 
     const [message, setMessage] = useState("");
+    // login user check 
+    const { loginUser, signInWithGoogle } = useAuth();
+
+    // navigate after the user successful register
+    const navigate = useNavigate();
+
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
+
+    // check login user credentials is valid or not
+    const onSubmit = async (data) => {
+        try {
+            await loginUser(data.email, data.password);
+            alert("Login successful!");
+            navigate("/");
+        } catch (error) {
+            setMessage("Please provide valid email and password");
+        }
+    }
 
     // handle Google Sign In
-    const handleGoogleSignIn = () => {
-
+    const handleGoogleSignIn = async () => {
+        // console.log("handle google :-", handleGoogleSignIn);
+        try {
+            await signInWithGoogle();
+            alert("Login successful!");
+            navigate("/");
+        } catch (error) {
+            alert("Google sign in failed!");
+            console.log(error);
+        }
     }
 
     return (
@@ -49,7 +74,6 @@ const Login = () => {
                     }
                     <div>
                         <button
-                            onClick={handleGoogleSignIn}
                             className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded focus:outline-none'>
                             Login
                         </button>
@@ -67,6 +91,7 @@ const Login = () => {
 
                 <div className='mt-4'>
                     <button
+                        onClick={handleGoogleSignIn}
                         className='w-full flex flex-wrap gap-1 items-center justify-center bg-secondary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none'>
                         <FaGoogle className='mr-2' />
                         Sign in with Google

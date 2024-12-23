@@ -5,6 +5,7 @@ import { HiOutlineUser, HiOutlineHeart, HiOutlineShoppingCart } from "react-icon
 import avatarImg from "../assets/avatar.png";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useAuth } from "../context/AuthContext";
 
 // Get DropDown Menu From Click User Icon
 const navigation = [
@@ -23,7 +24,14 @@ const Navbar = () => {
     const cartItems = useSelector(state => state.cart.cartItems);
     // console.log(cartItems);
 
-    const currentUser = false;
+    //check current user and logout user
+    const { currUser, logOut } = useAuth();
+
+    // handle log out functionality
+    const handleLogOut = () => {
+        logOut();
+    }
+    // const currentUser = false;
 
     return (
         <header className="max-w-screen-2xl mx-auto px-24 py-6">
@@ -47,9 +55,9 @@ const Navbar = () => {
                 <div className="relative flex items-center md:space-x-3 space-x-2">
                     <div>
                         {
-                            currentUser ? <>
+                            currUser ? <>
                                 <button onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-                                    <img src={avatarImg} alt="" className={`size-7 rounded-full ${currentUser ? 'ring-2 ring-blue-500' : ''}`} />
+                                    <img src={avatarImg} alt="" className={`size-7 rounded-full ${currUser ? 'ring-2 ring-blue-500' : ''}`} />
                                 </button>
                                 {/* Show DropDown */}
                                 {
@@ -65,6 +73,11 @@ const Navbar = () => {
                                                         </li>
                                                     ))
                                                 }
+                                                <li>
+                                                    <button
+                                                        onClick={handleLogOut}
+                                                        className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">Logout</button>
+                                                </li>
                                             </ul>
                                         </div>
                                     )

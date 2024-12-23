@@ -1,17 +1,41 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaGoogle } from "react-icons/fa";
+import { useAuth } from '../context/AuthContext';
 
 const Register = () => {
-
+    // set messages
     const [message, setMessage] = useState("");
+    // register users
+    const { registerUser, signInWithGoogle } = useAuth();
+
+    // navigate after the user successful register
+    const navigate = useNavigate();
+
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
+
+    // check user register credentials is valid or not
+    const onSubmit = async (data) => {
+        console.log(data);
+        try {
+            await registerUser(data.email, data.password);
+            alert("User registered successfully!");
+        } catch (error) {
+            setMessage("Please provide valid email and password");
+        }
+    }
 
     // handle Google Sign In
-    const handleGoogleSignIn = () => {
-
+    const handleGoogleSignIn = async () => {
+        try {
+            await signInWithGoogle();
+            alert("Login successful!");
+            navigate("/");
+        } catch (error) {
+            alert("Google sign in failed!");
+            console.log(error);
+        }
     }
     return (
         <div className='h-[calc(100vh-120px)] flex justify-center items-center'>
@@ -64,6 +88,7 @@ const Register = () => {
                 {/* Google Sign In */}
                 <div className='mt-4'>
                     <button
+                        onClick={handleGoogleSignIn}
                         className='w-full flex flex-wrap gap-1 items-center justify-center bg-secondary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none'>
                         <FaGoogle className='mr-2' />
                         Sign in with Google
