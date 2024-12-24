@@ -16,9 +16,14 @@ app.use(cors({
 // routes
 const bookRoutes = require('./src/books/book.route');
 const orderRoutes = require('./src/orders/order.route');
+const userRoutes = require('./src/user/user.route');
 
+// get all books data
 app.use("/api/books", bookRoutes);
+// get all orders
 app.use("/api/orders", orderRoutes);
+// check the user credentials
+app.use("/api/auth", userRoutes);
 
 
 async function main() {
