@@ -2,28 +2,35 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useForm } from "react-hook-form"
 import { Link, useNavigate } from 'react-router-dom';
-// import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 
 import Swal from 'sweetalert2';
+import { useCreateOrderMutation } from '../../redux/orders/ordersApi';
 // import { useCreateOrderMutation } from '../../redux/features/orders/ordersApi';
 
 const CheckoutPage = () => {
     const cartItems = useSelector(state => state.cart.cartItems);
-    const totalPrice = cartItems.reduce((acc, item) => acc + item.newPrice, 0).toFixed(2);
-    // const { currentUser } = useAuth();
-    const currentUser = true;
-    const { register, handleSubmit, watch, formState: { errors }, } = useForm()
 
-    // const [createOrder, { isLoading, error }] = useCreateOrderMutation();
-    // const navigate = useNavigate();
+    const totalPrice = cartItems.reduce((acc, item) => acc + item.newPrice, 0).toFixed(2);
+
+    // check if user is login then show the checkout page otherwise note
+    const { currUser } = useAuth();
+
+    const { register, handleSubmit, watch, formState: { errors }, } = useForm();
+
+    // place orders
+    const [createOrder, { isLoading, error }] = useCreateOrderMutation();
+    const navigate = useNavigate();
+
+
 
     const [isChecked, setIsChecked] = useState(false);
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
 
         const newOrder = {
             name: data.name,
-            email: currentUser?.email,
+            email: currUser?.email,
             address: {
                 city: data.city,
                 country: data.country,
@@ -35,27 +42,25 @@ const CheckoutPage = () => {
             productIds: cartItems.map(item => item?._id),
             totalPrice: totalPrice,
         }
-        console.log(newOrder);
-
-        // try {
-        //     await createOrder(newOrder).unwrap();
-        //     Swal.fire({
-        //         title: "Confirmed Order",
-        //         text: "Your order placed successfully!",
-        //         icon: "warning",
-        //         showCancelButton: true,
-        //         confirmButtonColor: "#3085d6",
-        //         cancelButtonColor: "#d33",
-        //         confirmButtonText: "Yes, It's Okay!"
-        //     });
-        //     navigate("/orders")
-        // } catch (error) {
-        //     console.error("Error place an order", error);
-        //     alert("Failed to place an order")
-        // }
+        try {
+            await createOrder(newOrder).unwrap();
+            Swal.fire({
+                title: "Confirmed Order",
+                text: "Your order placed successfully!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, It's Okay!"
+            });
+            navigate("/orders")
+        } catch (error) {
+            console.error("Error place an order", error);
+            alert("Failed to place an order")
+        }
     }
 
-    // if (isLoading) return <div>Loading....</div>
+    if (isLoading) return <div>Loading....</div>
     return (
         <section>
             <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
@@ -66,7 +71,6 @@ const CheckoutPage = () => {
                             <p className="text-gray-500 mb-2">Total Price: ${totalPrice}</p>
                             <p className="text-gray-500 mb-6">Items: {cartItems.length > 0 ? cartItems.length : 0}</p>
                         </div>
-
 
                         <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
                             <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3 my-8">
@@ -90,7 +94,7 @@ const CheckoutPage = () => {
 
                                                 type="text" name="email" id="email" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                                                 disabled
-                                                defaultValue={currentUser?.email}
+                                                defaultValue={currUser?.email}
                                                 placeholder="email@domain.com" />
                                         </div>
                                         <div className="md:col-span-5">
@@ -165,9 +169,6 @@ const CheckoutPage = () => {
                                                 <label htmlFor="billing_same" className="ml-2 ">I am aggree to the <Link className='underline underline-offset-2 text-blue-600'>Terms & Conditions</Link> and <Link className='underline underline-offset-2 text-blue-600'>Shoping Policy.</Link></label>
                                             </div>
                                         </div>
-
-
-
                                         <div className="md:col-span-5 text-right">
                                             <div className="inline-flex items-end">
                                                 <button
@@ -180,16 +181,11 @@ const CheckoutPage = () => {
                                 </div>
                             </form>
                         </div>
-
-
-
                     </div>
-
-
                 </div>
             </div>
         </section>
     )
 }
 
-export default CheckoutPage
+export default CheckoutPage;

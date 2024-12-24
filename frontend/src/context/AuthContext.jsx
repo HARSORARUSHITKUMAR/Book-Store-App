@@ -59,6 +59,7 @@ export const AuthProvide = ({ children }) => {
     const value = {
         // if the user is available then pass the
         currUser,
+        loading,
         registerUser,
         loginUser,
         signInWithGoogle,
