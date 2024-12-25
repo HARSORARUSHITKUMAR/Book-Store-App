@@ -52,12 +52,10 @@ const booksApi = createApi({
         // delete a book 
         deleteBook: builder.mutation({
             query: (id) => ({
-                query: (id) => ({
-                    url: `/${id}`,
-                    method: "DELETE"
-                }),
-                invalidatesTags: ["Books"]
-            })
+                url: `/${id}`,
+                method: "DELETE"
+            }),
+            invalidatesTags: ["Books"]
         })
     })
 });

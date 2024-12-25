@@ -17,6 +17,8 @@ app.use(cors({
 const bookRoutes = require('./src/books/book.route');
 const orderRoutes = require('./src/orders/order.route');
 const userRoutes = require('./src/user/user.route');
+const AdminRoutes = require('./src/stat/admin.stat');
+
 
 // get all books data
 app.use("/api/books", bookRoutes);
@@ -24,6 +26,9 @@ app.use("/api/books", bookRoutes);
 app.use("/api/orders", orderRoutes);
 // check the user credentials
 app.use("/api/auth", userRoutes);
+// go to admin 
+app.use("/api/admin", userRoutes);
+
 
 
 async function main() {
