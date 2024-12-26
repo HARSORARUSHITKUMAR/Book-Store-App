@@ -19,10 +19,8 @@ const navigation = [
 const Navbar = () => {
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    // console.log(isDropdownOpen);
 
     const cartItems = useSelector(state => state.cart.cartItems);
-    // console.log(cartItems);
 
     //check current user and logout user
     const { currUser, logOut } = useAuth();
@@ -31,7 +29,6 @@ const Navbar = () => {
     const handleLogOut = () => {
         logOut();
     }
-    // const currentUser = false;
 
     return (
         <header className="max-w-screen-2xl mx-auto px-24 py-6">

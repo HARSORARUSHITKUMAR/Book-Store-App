@@ -22,8 +22,6 @@ const BookCard = ({ book }) => {
             >
                 <div className="sm:h-60 sm:flex-shrink-0 border rounded-md">
                     <Link to={`/books/${book._id}`}>
-
-                        {/* {console.log("Cover Image Value:", book.coverImage)} */}
                         <img
                             src={`${getImgUrl(book.coverImage)}`}
                             alt=""

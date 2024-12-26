@@ -16,24 +16,15 @@ const categories = ["Choose a genre", "Business", "Fiction", "Horror", "Adventur
 
 const TopSellers = () => {
 
-    // const [books, setBooks] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState("Choose a genre");
 
-    // useEffect(() => {
-    //     fetch("books.json")
-    //         .then(res => res.json())
-    //         .then((data) => setBooks(data));
-    // }, []);
-
-    // console.log(books);
 
     const { data: books = [] } = useFetchAllBookQuery();
-    // console.log(books);
+
 
     const filteredBooks = selectedCategory === "Choose a genre"
         ? books
         : books.filter(book => book.category === selectedCategory.toLowerCase())
-    // console.log(filteredBooks);
     return (
         <div className='py-10'>
             <h2 className='text-3xl font-semibold mb-6'>Top Sellers</h2>
@@ -55,9 +46,6 @@ const TopSellers = () => {
                 slidesPerView={1}
                 spaceBetween={30}
                 navigation={true}
-                // pagination={{
-                //     clickable: true,
-                // }}
                 breakpoints={{
                     640: { slidesPerView: 1, spaceBetween: 20 },
                     768: { slidesPerView: 2, spaceBetween: 40 },
@@ -75,8 +63,6 @@ const TopSellers = () => {
 
                     ))
                 }
-
-
             </Swiper>
 
         </div>

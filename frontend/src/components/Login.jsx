@@ -27,7 +27,6 @@ const Login = () => {
 
     // handle Google Sign In
     const handleGoogleSignIn = async () => {
-        // console.log("handle google :-", handleGoogleSignIn);
         try {
             await signInWithGoogle();
             alert("Login successful!");

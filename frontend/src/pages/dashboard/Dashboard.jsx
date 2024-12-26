@@ -30,14 +30,12 @@ const Dashboard = () => {
                 setLoading(false);
             } catch (error) {
                 console.error('Error:', error);
-                // setLoading(false);
             }
         }
 
         fetchData();
     }, []);
 
-    // console.log(data)
 
     if (loading) return <Loading />
     return (

@@ -17,7 +17,7 @@ const Register = () => {
 
     // check user register credentials is valid or not
     const onSubmit = async (data) => {
-        console.log(data);
+
         try {
             await registerUser(data.email, data.password);
             alert("User registered successfully!");

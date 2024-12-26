@@ -12,19 +12,8 @@ import { useFetchAllBookQuery } from '../../redux/features/books/booksApi';
 
 
 const Recommened = () => {
-
-    // const [books, setBooks] = useState([]);
-
-
-    // useEffect(() => {
-    //     fetch("books.json")
-    //         .then(res => res.json())
-    //         .then((data) => setBooks(data));
-    // }, []);
-
+    // get all book 
     const { data: books = [] } = useFetchAllBookQuery();
-
-
 
     return (
         <div className='py-16'>
@@ -33,9 +22,6 @@ const Recommened = () => {
                 slidesPerView={1}
                 spaceBetween={30}
                 navigation={true}
-                // pagination={{
-                //     clickable: true,
-                // }}
                 breakpoints={{
                     640: { slidesPerView: 1, spaceBetween: 20 },
                     768: { slidesPerView: 2, spaceBetween: 40 },
@@ -53,8 +39,6 @@ const Recommened = () => {
 
                     ))
                 }
-
-
             </Swiper>
         </div>
     );

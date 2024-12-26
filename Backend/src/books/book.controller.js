@@ -3,7 +3,6 @@ const Book = require("./book.model");
 
 // post a book
 const postABook = async (req, res) => {
-    // console.log(req.body);
     try {
         const newBook = await Book({ ...req.body });
         await newBook.save();

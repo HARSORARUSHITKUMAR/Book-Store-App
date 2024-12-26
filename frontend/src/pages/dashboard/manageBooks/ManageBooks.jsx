@@ -12,10 +12,8 @@ const ManageBooks = () => {
     // Handle deleting a book
     const handleDeleteBook = async (id) => {
         try {
-            console.log("Attempting to delete book with ID:", id);
             await deleteBook(id).unwrap();
             alert('Book deleted successfully!');
-            console.log("Refetching books...");
             refetch();
 
         } catch (error) {

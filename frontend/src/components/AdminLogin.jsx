@@ -15,7 +15,7 @@ const AdminLogin = () => {
 
     // check login user credentials is valid or not
     const onSubmit = async (data) => {
-        console.log(data)
+
         try {
             const response = await axios.post(`${getBaseUrl()}/api/auth/admin`, data, {
                 headers: {
@@ -23,7 +23,7 @@ const AdminLogin = () => {
                 }
             })
             const auth = response.data;
-            console.log(auth);
+
             if (auth.token) {
                 localStorage.setItem('token', auth.token);
                 setTimeout(() => {
