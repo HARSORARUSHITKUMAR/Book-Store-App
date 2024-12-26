@@ -4,14 +4,14 @@ import getBaseUrl from '../../../utils/baseUrl';
 const baseQuery = fetchBaseQuery({
     baseUrl: `${getBaseUrl()}/api/books`,
     credentials: 'include',
-    prepareHeaders: (Headers) => {
+    prepareHeaders: (headers) => {
         const token = localStorage.getItem('token');
         if (token) {
-            Headers.set('Authorization', `Bearer $(token)`);
+            headers.set('Authorization', `Bearer ${token}`);
         }
-        return Headers;
+        return headers;
     }
-})
+});
 
 const booksApi = createApi({
     reducerPath: 'booksApi',

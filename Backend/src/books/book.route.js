@@ -24,6 +24,6 @@ router.get("/:id", getSingleBook);
 router.put("/edit/:id", verifyAminToken, updateBookData);
 
 // delete data
-router.delete("/:id", verifyAminToken, deleteBook);
+router.delete('/:id', verifyAminToken, deleteBook);
 
 module.exports = router;
