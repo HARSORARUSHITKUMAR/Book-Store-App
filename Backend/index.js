@@ -45,3 +45,5 @@ main().then(() => console.log("MongoDB connected Successfully")).catch(err => co
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 });
+
+module.exports = app;
