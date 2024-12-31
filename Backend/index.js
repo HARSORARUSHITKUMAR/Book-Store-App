@@ -4,7 +4,7 @@ const cors = require('cors');
 
 const mongoose = require('mongoose');
 require('dotenv').config();
-// const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5000;
 
 // middleware
 app.use(express.json());
@@ -42,8 +42,6 @@ async function main() {
 
 main().then(() => console.log("MongoDB connected Successfully")).catch(err => console.log(err));
 
-// app.listen(port, () => {
-//     console.log(`Example app listening on port ${port}`)
-// });
-
-module.exports = app;
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+});
