@@ -6,6 +6,9 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const port = process.env.PORT || 5000;
 
+const favicon = require('favicon');
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
 // middleware
 app.use(express.json());
 app.use(cors({
@@ -34,15 +37,10 @@ app.use("/api/admin", AdminRoutes);
 
 
 async function main() {
-    try {
-        await mongoose.connect(process.env.DB_URL, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
-        console.log("MongoDB connected successfully");
-    } catch (error) {
-        console.log("MongoDB connection error:", error);
-    }
+    await mongoose.connect(process.env.DB_URL);
+    app.use('/', (req, res) => {
+        res.send('Book  Server')
+    });
 }
 
 main().then(() => console.log("MongoDB connected Successfully")).catch(err => console.log(err));
