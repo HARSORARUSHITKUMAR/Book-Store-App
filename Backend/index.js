@@ -34,10 +34,15 @@ app.use("/api/admin", AdminRoutes);
 
 
 async function main() {
-    await mongoose.connect(process.env.DB_URL);
-    app.use('/', (req, res) => {
-        res.send('Book  Server')
-    });
+    try {
+        await mongoose.connect(process.env.DB_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+        console.log("MongoDB connected successfully");
+    } catch (error) {
+        console.log("MongoDB connection error:", error);
+    }
 }
 
 main().then(() => console.log("MongoDB connected Successfully")).catch(err => console.log(err));
