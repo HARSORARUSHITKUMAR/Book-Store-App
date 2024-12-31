@@ -6,9 +6,6 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const port = process.env.PORT || 5000;
 
-const favicon = require('favicon');
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-
 // middleware
 app.use(express.json());
 app.use(cors({
